@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ataraxis/schedule.dart';
-import 'package:ataraxis/home.dart';
+import 'package:ataraxis/form.dart';
 import 'package:ataraxis/profile.dart';
 
 void main() {
@@ -37,7 +37,7 @@ class _TabbedViewClassState extends State<TabbedViewClass> {
         appBar: AppBar(
           title: Text("Ataraxis"),
           bottom: TabBar(
-            tabs: [Tab(text: "Home"), Tab(text: "Sessions"), Tab(text: "Profile")],
+            tabs: [Tab(text: "Form"), Tab(text: "Sessions"), Tab(text: "Profile")],
           ),
         ),
          body: TabBarView(

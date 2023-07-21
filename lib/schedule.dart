@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ataraxis/docdetails.dart';
 
 enum FilterStatus { Available, Booked, Missed }
 
@@ -148,49 +149,59 @@ class _ScheduleTabState extends State<ScheduleTab> {
                 itemBuilder: (context, index) {
                   var _schedule = filteredSchedules[index];
                   bool isLastElement = filteredSchedules.length + 1 == index;
-                  return Card(
-                    margin: !isLastElement
-                        ? EdgeInsets.only(bottom: 20)
-                        : EdgeInsets.zero,
-                    child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: AssetImage(_schedule['img']),
-                              ),
-                              SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    _schedule['doctorName'],
-                                    style: TextStyle(
-                                      color: Color(MyColors.header01),
-                                      fontWeight: FontWeight.w700,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DoctorDetails(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      margin: !isLastElement
+                          ? EdgeInsets.only(bottom: 20)
+                          : EdgeInsets.zero,
+                      child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage: AssetImage(_schedule['img']),
+                                ),
+                                SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _schedule['doctorName'],
+                                      style: TextStyle(
+                                        color: Color(MyColors.header01),
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    _schedule['sessionTitle'],
-                                    style: TextStyle(
-                                      color: Color(MyColors.grey02),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
+                                    SizedBox(height: 5),
+                                    Text(
+                                      _schedule['sessionTitle'],
+                                      style: TextStyle(
+                                        color: Color(MyColors.grey02),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15),
-                          DateTimeCard(),
-                          SizedBox(height: 15),
-                          _ActionButton(_schedule['status']),
-                        ],
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            DateTimeCard(),
+                            SizedBox(height: 15),
+                            _ActionButton(_schedule['status']),
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -221,20 +232,19 @@ class _ScheduleTabState extends State<ScheduleTab> {
       );
     } else if (scheduleStatus == FilterStatus.Booked) {
       return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           OutlinedButton(
             onPressed: () {
-              // Handle cancel action
+              // Handle cancel action; is removed from booked list and put into missed list. this action shouldn't be reversible
             },
             child: Text('Cancel'),
           ),
-          ElevatedButton(
-            onPressed: () {
-              // Handle reschedule action
-            },
-            child: Text('Reschedule'),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     // Handle reschedule action
+          //   },
+          //   child: Text('Reschedule'),
+          // ),
         ],
       );
     } else {
@@ -315,8 +325,6 @@ class MyColors {
   static int primary = 0xff575de3;
   static int purple01 = 0xff918fa5;
   static int purple02 = 0xff6b6e97;
-  static int yellow01 = 0xffeaa63b;
-  static int yellow02 = 0xfff29b2b;
   static int bg = 0xfff5f3fe;
   static int bg01 = 0xff6f75e1;
   static int bg02 = 0xffc3c5f8;
@@ -324,4 +332,5 @@ class MyColors {
   static int text01 = 0xffbec2fc;
   static int grey01 = 0xffe9ebf0;
   static int grey02 = 0xff9796af;
+  static int blue = 0xFFADD8E6;
 }
